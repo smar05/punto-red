@@ -1,18 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { IAuth } from '../interfaces/i-auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl: string =
-    'https://us-central1-puntored-dev.cloudfunctions.net/technicalTest-developer/api';
+  private apiUrl: string = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) {}
 
-  public authenticate(user: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth`, { user, password });
+  public authenticate(auth: IAuth): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth`, auth);
   }
 
   public getSuppliers(): Observable<any> {
