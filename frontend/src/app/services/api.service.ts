@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { IAuth } from '../interfaces/i-auth';
+import { Isuppliers } from '../interfaces/i-suppliers';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +16,12 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/auth`, auth);
   }
 
-  public getSuppliers(): Observable<any> {
+  public getSuppliers(): Observable<Isuppliers> {
     const token: string = localStorage.getItem('token') || (null as any);
-    if (!token) return of(null);
-    return this.http.get(`${this.apiUrl}/getSuppliers`, {
+    if (!token) return of(null) as any;
+    return this.http.get(`${this.apiUrl}/suppliers`, {
       headers: { Authorization: token },
-    });
+    }) as any;
   }
 
   public buyRecharge(

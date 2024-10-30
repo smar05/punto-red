@@ -1,0 +1,22 @@
+<div class="container mt-5">
+  <h2 class="text-center">Lista de Proveedores</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let supplier of suppliers">
+        <td>{{ supplier.id }}</td>
+        <td>{{ supplier.name }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
