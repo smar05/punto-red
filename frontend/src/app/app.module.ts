@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { BuyRechargeComponent } from './components/buy-recharge/buy-recharge.component';
 import { TransactionQueryComponent } from './components/transaction-query/transaction-query.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { TransactionQueryComponent } from './components/transaction-query/transa
     SuppliersComponent,
     BuyRechargeComponent,
     TransactionQueryComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
