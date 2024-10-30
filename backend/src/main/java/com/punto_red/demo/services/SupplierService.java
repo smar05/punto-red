@@ -1,6 +1,7 @@
 package com.punto_red.demo.services;
 
 import com.punto_red.demo.models.Supplier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,7 +11,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class SupplierService {
-    private static final String URL = "https://us-central1-puntored-dev.cloudfunctions.net/technicalTest-developer/api/getSuppliers";
+    @Value("${spring.apiUrl}")
+    private String apiUrl;
 
     public Supplier[] getSuppliers(final String token) {
         final RestTemplate restTemplate = new RestTemplate();
@@ -18,7 +20,7 @@ public class SupplierService {
         headers.set("Authorization", "Bearer " + token);
 
         final HttpEntity<String> entity = new HttpEntity<>(headers);
-        final ResponseEntity<Supplier[]> response = restTemplate.exchange(URL, HttpMethod.GET, entity, Supplier[].class);
+        final ResponseEntity<Supplier[]> response = restTemplate.exchange(apiUrl + "getSuppliers ", HttpMethod.GET, entity, Supplier[].class);
 
         return response.getBody();
     }

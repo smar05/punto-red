@@ -5,6 +5,7 @@ import com.punto_red.demo.models.PurchaseRequest;
 import com.punto_red.demo.models.PurchaseResponse;
 import com.punto_red.demo.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,8 +17,8 @@ import org.springframework.web.client.RestTemplate;
 public class PurchaseService {
     @Autowired
     private final TransactionRepository transactionRepository;
-
-    private static final String URL = "https://us-central1-puntored-dev.cloudfunctions.net/technicalTest-developer/api/buy";
+    @Value("${spring.apiUrl}")
+    private String apiUrl;
 
     public PurchaseService(final TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
@@ -30,7 +31,7 @@ public class PurchaseService {
         headers.set("Content-Type", "application/json");
 
         final HttpEntity<PurchaseRequest> entity = new HttpEntity<>(purchaseRequest, headers);
-        final ResponseEntity<PurchaseResponse> response = restTemplate.exchange(URL, HttpMethod.POST, entity, PurchaseResponse.class);
+        final ResponseEntity<PurchaseResponse> response = restTemplate.exchange(apiUrl + "buy", HttpMethod.POST, entity, PurchaseResponse.class);
         final PurchaseResponse purchaseResponse = response.getBody();
 
         if (purchaseResponse == null) {return null;}
