@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { BuyRechargeComponent } from './components/buy-recharge/buy-recharge.component';
+import { TransactionQueryComponent } from './components/transaction-query/transaction-query.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { BuyRechargeComponent } from './components/buy-recharge/buy-recharge.com
     LoginComponent,
     SuppliersComponent,
     BuyRechargeComponent,
+    TransactionQueryComponent,
   ],
   imports: [
     BrowserModule,

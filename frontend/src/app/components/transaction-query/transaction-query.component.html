@@ -1,0 +1,48 @@
+<div class="container mt-5">
+  <h2>Consulta de Transacciones</h2>
+  <form (ngSubmit)="onSubmit()" class="form-inline mb-4">
+    <div class="form-group mr-2">
+      <label for="cellPhone" class="sr-only">Número de Teléfono:</label>
+      <input
+        type="text"
+        id="cellPhone"
+        [(ngModel)]="cellPhone"
+        name="cellPhone"
+        class="form-control"
+        placeholder="Número de Teléfono"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary my-2">
+      Consultar Transacciones
+    </button>
+  </form>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="transactions.length > 0">
+    <h3>Transacciones:</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Monto</th>
+          <th>ID del Proveedor</th>
+          <th>ID Transacción</th>
+          <th>Fecha de Creación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions">
+          <td>{{ transaction.id }}</td>
+          <td>{{ transaction.value }}</td>
+          <td>{{ transaction.supplierId }}</td>
+          <td>{{ transaction.transactionalId }}</td>
+          <td>{{ transaction.createdAt | date : "short" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

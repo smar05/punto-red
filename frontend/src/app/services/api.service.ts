@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { IAuth } from '../interfaces/i-auth';
@@ -31,5 +31,15 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/buy`, purchase, {
       headers: { Authorization: token },
     });
+  }
+
+  public getTransactionsByCellphone(cellPhone: string): Observable<any> {
+    const token: string = localStorage.getItem('token') || (null as any);
+    if (!token) return of(null) as any;
+    const params = new HttpParams().set('cellPhone', cellPhone);
+    return this.http.get(`${this.apiUrl}/transactions`, {
+      headers: { Authorization: token },
+      params,
+    }) as any;
   }
 }
