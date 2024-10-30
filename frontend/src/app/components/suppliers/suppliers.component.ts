@@ -28,4 +28,8 @@ export class SuppliersComponent {
       }
     );
   }
+
+  public selectSupplier(id: string): void {
+    this.router.navigate([`/buy`], { queryParams: { supplierId: id } });
+  }
 }
