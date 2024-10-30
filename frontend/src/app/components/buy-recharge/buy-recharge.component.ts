@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ipurchase } from 'src/app/interfaces/i-purchase';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class BuyRechargeComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private alertService: AlertsService
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class BuyRechargeComponent implements OnInit {
       this.supplierId = params['supplierId'];
 
       if (!this.supplierId) {
-        this.router.navigate(['/login']);
+        this.error();
       }
     });
   }
@@ -71,8 +73,13 @@ export class BuyRechargeComponent implements OnInit {
       (error) => {
         this.errorMessage = 'Error al realizar la recarga: ' + error.message;
         this.successMessage = '';
-        this.router.navigate([`/login`]);
+        this.error();
       }
     );
+  }
+
+  private error(): void {
+    this.alertService.basicAlert('Error', 'Ha ocurrido un error', 'error');
+    this.router.navigate(['/login']);
   }
 }

@@ -22,7 +22,7 @@
     {{ errorMessage }}
   </div>
 
-  <div *ngIf="transactions.length > 0">
+  <div *ngIf="transactions && transactions.length > 0">
     <h3>Transacciones:</h3>
     <table class="table table-striped">
       <thead>

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Itransactions } from 'src/app/interfaces/i-transactions';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -12,13 +14,29 @@ export class TransactionQueryComponent {
   public transactions: Itransactions[] = [];
   public errorMessage: string = '';
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private alertService: AlertsService,
+    private router: Router
+  ) {}
 
   public onSubmit(): void {
-    this.apiService
-      .getTransactionsByCellphone(this.cellPhone)
-      .subscribe((data) => {
+    this.apiService.getTransactionsByCellphone(this.cellPhone).subscribe(
+      (data) => {
+        if (!data || data.length === 0) {
+          this.error();
+          return;
+        }
         this.transactions = data;
-      });
+      },
+      (error) => {
+        this.error();
+      }
+    );
+  }
+
+  private error(): void {
+    this.alertService.basicAlert('Error', 'Ha ocurrido un error', 'error');
+    this.router.navigate(['/login']);
   }
 }
