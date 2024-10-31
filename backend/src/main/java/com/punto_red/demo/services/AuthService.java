@@ -2,6 +2,7 @@ package com.punto_red.demo.services;
 
 import com.punto_red.demo.models.AuthRequest;
 import com.punto_red.demo.models.AuthResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,8 +12,12 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class AuthService {
-    private final String AUTH_URL = "https://us-central1-puntored-dev.cloudfunctions.net/technicalTest-developer/api/auth";
+    @Value("${spring.apiUrl}")
+    private String apiUrl;
     private final String API_KEY = "mtrQF6Q11eosqyQnkMY0JGFbGqcxVg5icvfVnX1ifIyWDvwGApJ8WUM8nHVrdSkN";
+
+    public AuthService() {
+    }
 
     public AuthResponse authenticate(final AuthRequest authRequest){
         final RestTemplate restTemplate = new RestTemplate();
@@ -22,7 +27,7 @@ public class AuthService {
 
         final HttpEntity<AuthRequest> requestEntity = new HttpEntity<>(authRequest, headers);
 
-        final ResponseEntity<AuthResponse> response = restTemplate.exchange(AUTH_URL, HttpMethod.POST, requestEntity, AuthResponse.class);
+        final ResponseEntity<AuthResponse> response = restTemplate.exchange(apiUrl + "auth", HttpMethod.POST, requestEntity, AuthResponse.class);
 
         return response.getBody();
     }

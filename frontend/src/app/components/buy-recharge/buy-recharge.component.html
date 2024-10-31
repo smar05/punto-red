@@ -1,0 +1,78 @@
+<div class="container mt-5">
+  <h2 class="text-center">Compra de Recarga Móvil</h2>
+
+  <form [formGroup]="rechargeForm" (ngSubmit)="buyRecharge()">
+    <div class="form-group">
+      <label for="cellPhone">Número de Teléfono:</label>
+      <input
+        type="text"
+        id="cellPhone"
+        class="form-control"
+        formControlName="cellPhone"
+        placeholder="Ej: 3210338900"
+      />
+      <div
+        *ngIf="
+          rechargeForm.get('cellPhone')?.invalid &&
+          (rechargeForm.get('cellPhone')?.touched ||
+            rechargeForm.get('cellPhone')?.dirty)
+        "
+        class="text-danger"
+      >
+        <small *ngIf="rechargeForm.get('cellPhone')?.errors?.['required']"
+          >El número de teléfono es requerido.</small
+        >
+        <small *ngIf="rechargeForm.get('cellPhone')?.errors?.['pattern']"
+          >El número debe iniciar con 3 y tener 10 dígitos.</small
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="value">Valor de la Recarga:</label>
+      <input
+        type="number"
+        id="value"
+        class="form-control"
+        min="10000"
+        max="100000"
+        formControlName="value"
+        placeholder="Ej: 10000"
+      />
+      <div
+        *ngIf="
+          rechargeForm.get('value')?.invalid &&
+          (rechargeForm.get('value')?.touched ||
+            rechargeForm.get('value')?.dirty)
+        "
+        class="text-danger"
+      >
+        <small *ngIf="rechargeForm.get('value')?.errors?.['required']"
+          >El valor es requerido.</small
+        >
+        <small *ngIf="rechargeForm.get('value')?.errors?.['min']"
+          >El valor mínimo es 1000.</small
+        >
+        <small *ngIf="rechargeForm.get('value')?.errors?.['max']"
+          >El valor máximo es 100000.</small
+        >
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="rechargeForm.invalid"
+    >
+      Comprar Recarga
+    </button>
+  </form>
+
+  <div *ngIf="successMessage" class="alert alert-success mt-3">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
+</div>

@@ -15,9 +15,6 @@ public class AuthController {
     @Autowired
     private final AuthService authService;
 
-    private final String AUTH_URL = "https://us-central1-puntored-dev.cloudfunctions.net/technicalTest-developer/api/auth";
-    private final String API_KEY = "mtrQF6Q11eosqyQnkMY0JGFbGqcxVg5icvfVnX1ifIyWDvwGApJ8WUM8nHVrdSkN";
-
     public AuthController(final AuthService authService) {
         this.authService = authService;
     }
