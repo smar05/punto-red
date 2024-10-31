@@ -190,7 +190,7 @@ Esto creará una carpeta dist con los archivos necesarios para el despliegue del
 
 El aplicativo se desplego en un servicio de hosting en la siguiente url:
 
-https://punto-red.netlify.app/login
+https://punto-red.netlify.app
 
 ## Rutas del Aplicativo
 El aplicativo tiene las siguientes rutas configuradas:
